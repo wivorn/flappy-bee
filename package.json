@@ -1,0 +1,31 @@
+{
+  "name": "flappy-bee",
+  "version": "1.0.0",
+  "description": "Flappy bee game",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wivorn/flappy-bee.git"
+  },
+  "keywords": [
+    "Flappy",
+    "Bee"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wivorn/flappy-bee/issues"
+  },
+  "homepage": "https://github.com/wivorn/flappy-bee#readme",
+  "devDependencies": {
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
