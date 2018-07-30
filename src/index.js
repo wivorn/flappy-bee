@@ -5,6 +5,12 @@ var screen = {
 var bee
 var pipes
 var cursors
+var audioContext
+try {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)()
+} catch (e) {
+    console.error(e)
+}
 
 const config = {
     type: Phaser.AUTO,
@@ -23,6 +29,9 @@ const config = {
         preload: preload,
         create: create,
         update: update
+    },
+    audio: {
+        context: audioContext
     }
 }
 
@@ -59,11 +68,14 @@ function update() {
 
 function jump() {
     bee.setVelocityY(-350)
+    var jumpSound = this.sound.add('jump', { volume: 1 })
     this.tweens.add({
         targets: bee,
         duration: 100,
         angle: -20
     })
+
+    jumpSound.play()
 }
 
 function hitPipe() {
