@@ -1,5 +1,5 @@
 var screen = {
-    width: 400,
+    width: window.innerWidth,
     height: 490
 }
 var bee
@@ -37,14 +37,26 @@ const config = {
 
 function preload() {
     this.load.image('pipe', 'assets/pipe.png')
-    this.load.image('bee', 'assets/bee.png')
+    this.load.spritesheet('bee', 'assets/bee_sprite.png', {
+    	frameWidth: 64,
+    	frameHeight: 64
+    })
     this.load.audio('jump', 'assets/jump.wav')
 }
 
 function create() {
     // Bee Sprite
-    bee = this.physics.add.sprite(100, 245, 'bee')
+    bee = this.physics.add.sprite(100, 245, 'bee').setOrigin(-0.2, 0.5)
     bee.setCollideWorldBounds(true)
+
+    this.anims.create({
+	    key: 'right',
+	    frames: this.anims.generateFrameNumbers('bee', { start: 6, end: 8 }),
+	    frameRate: 10,
+	    repeat: -1
+	})
+
+	bee.anims.play('right', true)
 
     pipes = this.physics.add.group()
 
@@ -61,21 +73,19 @@ function create() {
 }
 
 function update() {
-    if (bee.angle < 20) {
+    if (bee.angle < 10) {
         bee.angle += 1
     }
 }
 
 function jump() {
     bee.setVelocityY(-350)
-    var jumpSound = this.sound.add('jump', { volume: 1 })
+    this.sound.add('jump', { volume: 1 }).play()
     this.tweens.add({
         targets: bee,
         duration: 100,
-        angle: -20
+        angle: -10
     })
-
-    jumpSound.play()
 }
 
 function hitPipe() {
