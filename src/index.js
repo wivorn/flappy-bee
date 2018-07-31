@@ -37,7 +37,7 @@ const config = {
 
 function preload() {
     this.load.image('pipe', 'assets/pipe.png')
-    this.load.spritesheet('bee', 'assets/bee_sprite.png', {
+    this.load.spritesheet('bee', 'assets/bee_sprite_2.png', {
     	frameWidth: 256,
     	frameHeight: 256
     })
@@ -46,7 +46,7 @@ function preload() {
 
 function create() {
     // Bee Sprite
-    bee = this.physics.add.sprite(100, 245, 'bee').setDisplaySize(100, 100).setOrigin(-0.2, 0.5)
+    bee = this.physics.add.sprite(100, 245, 'bee').setDisplaySize(100, 100).setOrigin(-1, 0.5)
     bee.setCollideWorldBounds(true)
 
     this.anims.create({
@@ -74,7 +74,7 @@ function create() {
 }
 
 function update() {
-    // if (bee.angle < 5) {
+    // if (bee.angle < 20) {
     //     bee.angle += 1
     // }
 }
@@ -85,7 +85,7 @@ function jump() {
     // this.tweens.add({
     //     targets: bee,
     //     duration: 100,
-    //     angle: -5
+    //     angle: -10
     // })
 }
 
