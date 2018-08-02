@@ -22,7 +22,7 @@ const config = {
 }
 
 var game = new Phaser.Game(config)
-
+var over = false
 
 var bee
 var pipes
@@ -83,11 +83,11 @@ function create() {
 
     layer.setCollision(0)
 
-    this.physics.add.collider(layer, bee)
+    this.physics.add.collider(layer, bee, hitGround, null, this)
 }
 
 function update() {
-    // if (bee.angle < 20) {
+    // if (bee.angle < 5) {
     //     bee.angle += 1
     // }
 }
@@ -98,8 +98,17 @@ function jump() {
     // this.tweens.add({
     //     targets: bee,
     //     duration: 100,
-    //     angle: -10
+    //     angle: -5
     // })
+}
+
+function hitGround() {
+	if (over) {
+		return
+	} else {
+		over = true
+		console.log('Game Over!')
+	}
 }
 
 function addPipe(pipes, x, y, game) {
@@ -109,5 +118,5 @@ function addPipe(pipes, x, y, game) {
 }
 
 function hitPipe() {
-    alert('game over')
+    console.log('Game Over!')
 }

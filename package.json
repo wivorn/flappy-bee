@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-serve --content src/assets",
     "build": "webpack --mode production",
-    "deploy": "surge --project ./dist --domain flappy-bee.surge.sh"
+    "deploy": "webpack --mode production; surge --project ./dist --domain flappy-bee.surge.sh"
   },
   "repository": {
     "type": "git",
@@ -26,15 +26,9 @@
   "homepage": "https://github.com/wivorn/flappy-bee#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^4.5.2",
-    "git-scripts": "^0.2.1",
     "surge": "^0.20.1",
     "webpack": "^4.16.3",
     "webpack-cli": "^3.1.0",
     "webpack-serve": "^2.0.2"
-  },
-  "git": {
-    "scripts": {
-      "pre-push": "npm run build; surge --project ./dist --domain flappy-bee.surge.sh"
-    }
   }
 }
