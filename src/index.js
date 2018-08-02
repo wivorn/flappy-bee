@@ -1,21 +1,7 @@
-var screen = {
-    width: window.innerWidth,
-    height: 490
-}
-var bee
-var pipes
-var cursors
-var audioContext
-try {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)()
-} catch (e) {
-    console.error(e)
-}
-
 const config = {
     type: Phaser.AUTO,
-    width: screen.width,
-    height: screen.height,
+    width: window.innerWidth,
+    height: 640,
     backgroundColor: '#71C5CF',
     physics: {
         default: 'arcade',
@@ -35,8 +21,24 @@ const config = {
     }
 }
 
+var game = new Phaser.Game(config)
+
+
+var bee
+var pipes
+var cursors
+var groundLayer
+
+var audioContext
+try {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)()
+} catch (e) {
+    console.error(e)
+}
+
 function preload() {
     this.load.image('pipe', 'assets/pipe.png')
+    this.load.image('tile', 'assets/ground_tile.png')
     this.load.spritesheet('bee', 'assets/bee_sprite_2.png', {
     	frameWidth: 256,
     	frameHeight: 256
@@ -46,7 +48,7 @@ function preload() {
 
 function create() {
     // Bee Sprite
-    bee = this.physics.add.sprite(100, 245, 'bee').setDisplaySize(100, 100).setOrigin(-1, 0.5)
+    bee = this.physics.add.sprite(50, 245, 'bee').setDisplaySize(64, 64).setOrigin(-1, 0.5)
     bee.setCollideWorldBounds(true)
 
     this.anims.create({
@@ -71,6 +73,17 @@ function create() {
     // Action - Touch
     this.input.addPointer()
     this.input.on('pointerdown', jump, this)
+
+    // Map
+    const screenWidth = Math.ceil(window.innerWidth / 64)
+    const level = [(new Array(screenWidth)).fill(0, 0, screenWidth)]
+    const map = this.make.tilemap({ data: level, tileWidth: 64, tileHeight: 64 })
+    const tiles = map.addTilesetImage('tile')
+    const layer = map.createStaticLayer(0, tiles, 0, 576)
+
+    layer.setCollision(0)
+
+    this.physics.add.collider(layer, bee)
 }
 
 function update() {
@@ -98,5 +111,3 @@ function addPipe(pipes, x, y, game) {
 function hitPipe() {
     alert('game over')
 }
-
-var game = new Phaser.Game(config)
